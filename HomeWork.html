@@ -30,93 +30,70 @@
         <div class="heading">
           <h2>Add New Pizza</h2>
         </div>
-        <form id="addNewPizzaForm">
-          <label for="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            maxlength="30"
-            required
-            placeholder="Please enter name"
-          />
-          <div id="error" style="visibility: hidden">
-            <p>Name already exist!</p>
-          </div>
-          <label for="price">Price:</label>
-          <input
-            type="number"
-            onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)"
-            id="price"
-            name="price"
-            min="0"
-            required
-            placeholder="Please enter price"
-          /><br /><br />
-          <label for="heat">Heat:</label>
-          <select name="heat" id="heat">
-            <option value="">Please select</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option></select
-          ><br /><br />
-          <label for="toppings">Toppings:</label>
-          <textarea
-            name="toppings"
-            id="toppings"
-            cols="30"
-            rows="5"
-            minlength="2"
-            required
-          ></textarea
-          ><br /><br />
-          <label for="photo">Photo:</label>
-          <select id="photo" name="photo">
-            <option
-              value="https://images.freeimages.com/images/large-previews/4a5/tasty-pizza-1322888.jpg"
-              selected="selected"
-            >
-              Pepperoni Pizza
-            </option>
-            <option
-              value="https://images.freeimages.com/images/large-previews/7b4/pizza-1330106.jpg"
-            >
-              Cheese Pizza
-            </option>
-            <option
-              value="https://images.freeimages.com/images/large-previews/e55/delicious-cuban-pizza-1571366.jpg"
-            >
-              Margherita Pizza
-            </option>
-            <option
-              value="https://images.freeimages.com/images/large-previews/c40/pre-pizza-1325701.jpg"
-            >
-              Hawaiian Pizza
-            </option>
-            <option
-              value="https://images.freeimages.com/images/large-previews/956/delicious-pizza-2-1325192.jpg"
-            >
-              Buffalo Pizza
-            </option>
-            <option
-              value="https://images.freeimages.com/images/large-previews/7b4/pizza-1330106.jpg"
-            >
-              Meat Pizza
-            </option>
-            <option
-              value="https://images.freeimages.com/images/large-previews/4a5/tasty-pizza-1322888.jpg"
-            >
-              Vegan Pizza
-            </option></select
-          ><br /><br />
-          <input type="submit" id="button" value="Add New Pizza" />
-        </form>
+        <div class="formContainer">
+          <form id="addNewPizzaForm">
+            <label for="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              maxlength="30"
+              required
+              placeholder="Please enter name"
+            />
+            <div id="error" style="visibility: hidden">
+              <p>Name already exist!</p>
+            </div>
+            <label for="price">Price:</label>
+            <input
+              type="number"
+              onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)"
+              id="price"
+              name="price"
+              min="0"
+              required
+              placeholder="Please enter price"
+            /><br /><br />
+            <label for="heat">Heat:</label>
+            <select name="heat" id="heat">
+              <option value="">Please select</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option></select
+            ><br /><br />
+            <label for="toppings">Toppings:</label><br />
+            <textarea
+              name="toppings"
+              id="toppings"
+              cols="30"
+              rows="5"
+              minlength="2"
+              required
+              placeholder="Please list toppings separated by comma"
+            ></textarea
+            ><br /><br />
+            <label for="photo">Photo:</label>
+            <select id="photo" name="photo">
+              <option value="./img/no-image.png" selected="selected">
+                Please select image
+              </option>
+              <option value="./img/pizza1.jpg">Pepperoni Pizza</option>
+              <option value="./img/pizza2.jpg">Cheese Pizza</option>
+              <option value="./img/pizza3.jpg">Margherita Pizza</option>
+              <option value="./img/pizza4.jpg">Hawaiian Pizza</option>
+              <option value="./img/pizza5.jpg">Buffalo Pizza</option>
+              <option value="./img/pizza6.jpg">Meat Pizza</option>
+            </select>
+            <div class="submitButton">
+              <input type="submit" id="button" value="Add New Pizza" />
+            </div>
+          </form>
+        </div>
+        <div class="preview">
+          <img src="./img/no-image.png" id="previewImage" width="230px" />
+        </div>
       </div>
     </div>
-    <div id="msg">
-      <pre></pre>
-    </div>
-    <button onclick="sortTable(4)">Sort</button>
     <script src="js/script.js"></script>
   </body>
 </html>

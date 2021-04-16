@@ -14,21 +14,17 @@ const addPizza = (event) => {
     }
 
     // event.preventDefault(); //to stop the form submitting
+
     let pizza = {
       id: Date.now(),
       name: document.getElementById("name").value,
       price: document.getElementById("price").value,
       heat: document.getElementById("heat").value,
-      toppings: getList(document.getElementById("toppings").value),
+      toppings: document.getElementById("toppings").value.split(","),
       photo: document.getElementById("photo").value,
     };
     pizzas.push(pizza);
     document.querySelector("form").reset();
-
-    //for display purposes only
-    let pre = document.querySelector("#msg pre");
-    pre.textContent = "\n" + JSON.stringify(pizzas, "\t", 2);
-    //populateOverallOverview(pizzas);
 
     //saving to localStorage
     sessionStorage.setItem("PizzaList", JSON.stringify(pizzas));
@@ -47,7 +43,7 @@ const addPizza = (event) => {
     addCell(row, "<img src='" + pizza.photo + "' width='120'>");
     addCell(row, pizza.name);
     addCell(row, imageHot);
-    addCell(row, pizza.toppings);
+    addCell(row, getList(pizza.toppings));
     addCell(row, pizza.price + " €");
     addCell(
       row,
@@ -77,6 +73,7 @@ function nameValidation(e) {
 }
 
 function isUniqueName(name) {
+  name = name.replace(/  +/g, " ").trim();
   let pizzas = [];
   if (sessionStorage.getItem("PizzaList") !== null) {
     pizzas = JSON.parse(sessionStorage.getItem("PizzaList"));
@@ -106,9 +103,8 @@ function deletePizza(btn, id) {
   }
 }
 
-function getList(toppings) {
+function getList(arrayOfToppings) {
   var listOfToppings = "<ul>";
-  var arrayOfToppings = toppings.split(" ");
   arrayOfToppings.forEach(function (item) {
     listOfToppings = listOfToppings.concat("<li>" + item + "</li>");
   });
@@ -159,7 +155,7 @@ function populateOverallOverview() {
     addCell(row, "<img src='" + item.photo + "' width='120'>");
     addCell(row, item.name);
     addCell(row, hotImage);
-    addCell(row, item.toppings);
+    addCell(row, getList(item.toppings));
     addCell(row, item.price + " €");
 
     addCell(
@@ -279,4 +275,11 @@ function sortTable(index) {
       switching = true;
     }
   }
+}
+
+const imgSelector = document.getElementById("photo");
+imgSelector.addEventListener("change", previewPhoto);
+
+function previewPhoto(e) {
+  document.getElementById("previewImage").src = e.target.value;
 }
