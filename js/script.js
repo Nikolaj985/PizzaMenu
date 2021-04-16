@@ -241,3 +241,13 @@ document.getElementById("photo").addEventListener("change", previewPhoto);
 function previewPhoto(e) {
   document.getElementById("previewImage").src = e.target.value;
 }
+
+document.getElementById("price").addEventListener("change", priceCheck);
+
+function priceCheck(input) {
+  if (input.target.value <= 0) {
+    input.target.setCustomValidity("Value should be greater than zero.");
+  } else {
+    input.target.setCustomValidity("");
+  }
+}
