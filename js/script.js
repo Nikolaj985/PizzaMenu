@@ -1,5 +1,6 @@
-// example {id:1592304983049, title: 'Deadpool', year: 2015}
-const addPizza = (event) => {
+document.getElementById("button").addEventListener("click", addPizza);
+
+function addPizza(event) {
   if (
     document.getElementById("name").value != "" &&
     document.getElementById("name").value.length < 31 &&
@@ -13,8 +14,6 @@ const addPizza = (event) => {
       pizzas = JSON.parse(sessionStorage.getItem("PizzaList"));
     }
 
-    // event.preventDefault(); //to stop the form submitting
-
     let pizza = {
       id: Date.now(),
       name: document.getElementById("name").value,
@@ -23,14 +22,14 @@ const addPizza = (event) => {
       toppings: document.getElementById("toppings").value.split(","),
       photo: document.getElementById("photo").value,
     };
+
     pizzas.push(pizza);
     document.querySelector("form").reset();
-
-    //saving to localStorage
+    document.getElementById("previewImage").src = "./img/no-image.png";
     sessionStorage.setItem("PizzaList", JSON.stringify(pizzas));
 
-    var table = document.getElementById("firstTabOverall");
-    // helper function
+    var table = document.getElementById("menuTable");
+
     function addCell(tr, text) {
       var td = tr.insertCell();
       td.innerHTML = text;
@@ -54,13 +53,9 @@ const addPizza = (event) => {
 
     event.preventDefault();
   }
-};
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("button").addEventListener("click", addPizza);
-});
+}
 
-const input = document.getElementById("name");
-input.addEventListener("input", nameValidation);
+document.getElementById("name").addEventListener("input", nameValidation);
 
 function nameValidation(e) {
   if (!isUniqueName(e.target.value)) {
@@ -118,35 +113,14 @@ function populateOverallOverview() {
     pizzas = JSON.parse(sessionStorage.getItem("PizzaList"));
   }
 
-  var table = document.getElementById("firstTabOverall");
-  // helper function
+  var table = document.getElementById("menuTable");
+
   function addCell(tr, text) {
     var td = tr.insertCell();
     td.innerHTML = text;
-
     return td;
   }
 
-  // var headers = ["Name", "Price", "Heat", "Toppings", "Image", "Action"];
-
-  // create header
-  // var th = table.createTHead();
-  // var headerRow = th.insertRow();
-  // headers.forEach((element) => {
-  //   th = document.createElement("th");
-  //   th.id = "th" + element;
-  //   th.innerHTML = element;
-  //   headerRow.appendChild(th);
-  // });
-
-  // addCell(headerRow, "Name");
-  // addCell(headerRow, "Price");
-  // addCell(headerRow, "Heat");
-  // addCell(headerRow, "Toppings");
-  // addCell(headerRow, "Image");
-  // addCell(headerRow, "Action");
-
-  // insert data
   var tr = table.createTBody();
 
   pizzas.forEach(function (item) {
@@ -166,26 +140,22 @@ function populateOverallOverview() {
     );
   });
 }
+
 var asc = true;
-const thName = document.getElementById("thName");
-thName.addEventListener("click", () => {
+document.getElementById("thName").addEventListener("click", () => {
   sortTable(1);
   asc = !asc;
 });
-const thPrice = document.getElementById("thPrice");
-thPrice.addEventListener("click", () => {
+
+document.getElementById("thPrice").addEventListener("click", () => {
   sortTable(4);
   asc = !asc;
 });
 
-const thHeat = document.getElementById("thHeat");
-thHeat.addEventListener("click", () => {
+document.getElementById("thHeat").addEventListener("click", () => {
   sortTable(2);
   asc = !asc;
 });
-
-// const thPrice = document.getElementById("thHeat");
-// thPrice.addEventListener("input", nameValidation);
 
 function getHotImage(value) {
   if (value == 1) {
@@ -200,40 +170,32 @@ function getHotImage(value) {
 
 function sortTable(index) {
   var table, rows, switching, i, x, y, shouldSwitch;
-  table = document.getElementById("firstTabOverall");
+  table = document.getElementById("menuTable");
   switching = true;
-  /* Make a loop that will continue until
-  no switching has been done: */
   while (switching) {
-    // Start by saying: no switching is done:
     switching = false;
     rows = table.rows;
-    /* Loop through all table rows (except the
-    first, which contains table headers): */
     for (i = 1; i < rows.length - 1; i++) {
-      // Start by saying there should be no switching:
       shouldSwitch = false;
-      /* Get the two elements you want to compare,
-      one from current row and one from the next: */
       x = rows[i].getElementsByTagName("td")[index];
       y = rows[i + 1].getElementsByTagName("td")[index];
-      // Check if the two rows should switch place:
       if (index == 2) {
+        var checkX = 0;
+        var checkY = 0;
+        if (typeof x.getElementsByTagName("img")[0] !== "undefined") {
+          checkX = x.getElementsByTagName("img")[0].getAttribute("value");
+        }
+        if (typeof y.getElementsByTagName("img")[0] !== "undefined") {
+          checkY = y.getElementsByTagName("img")[0].getAttribute("value");
+        }
+        console.log("x" + checkX + "x" + checkY);
         if (asc) {
-          if (
-            x.getElementsByTagName("img")[0].getAttribute("value") >
-            y.getElementsByTagName("img")[0].getAttribute("value")
-          ) {
-            // If so, mark as a switch and break the loop:
+          if (checkX > checkY) {
             shouldSwitch = true;
             break;
           }
         } else {
-          if (
-            x.getElementsByTagName("img")[0].getAttribute("value") <
-            y.getElementsByTagName("img")[0].getAttribute("value")
-          ) {
-            // If so, mark as a switch and break the loop:
+          if (checkX < checkY) {
             shouldSwitch = true;
             break;
           }
@@ -241,13 +203,11 @@ function sortTable(index) {
       } else if (index == 4) {
         if (asc) {
           if (parseFloat(x.innerHTML) > parseFloat(y.innerHTML)) {
-            // If so, mark as a switch and break the loop:
             shouldSwitch = true;
             break;
           }
         } else {
           if (parseFloat(x.innerHTML) < parseFloat(y.innerHTML)) {
-            // If so, mark as a switch and break the loop:
             shouldSwitch = true;
             break;
           }
@@ -255,13 +215,11 @@ function sortTable(index) {
       } else {
         if (asc) {
           if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-            // If so, mark as a switch and break the loop:
             shouldSwitch = true;
             break;
           }
         } else {
           if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-            // If so, mark as a switch and break the loop:
             shouldSwitch = true;
             break;
           }
@@ -269,16 +227,13 @@ function sortTable(index) {
       }
     }
     if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
       switching = true;
     }
   }
 }
 
-const imgSelector = document.getElementById("photo");
-imgSelector.addEventListener("change", previewPhoto);
+document.getElementById("photo").addEventListener("change", previewPhoto);
 
 function previewPhoto(e) {
   document.getElementById("previewImage").src = e.target.value;

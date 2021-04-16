@@ -49,10 +49,11 @@ tbody tr {
   border-bottom-style: solid;
 }
 tbody td {
-  max-width: 230px;
+  max-width: 200px;
   word-wrap: break-word;
   padding-left: 5px;
   font-size: 15px;
+  padding: 10px;
 }
 
 tbody button {
