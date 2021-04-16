@@ -1,0 +1,56 @@
+body {
+  background-color: lightgray;
+}
+
+.mainWindow {
+  margin: 20px auto;
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.pizzaMenu {
+  border-top-left-radius: 25px;
+  border-style: solid;
+  max-width: 600px;
+  background-color: white;
+}
+
+h2 {
+  text-align: center;
+  color: rgb(196, 101, 101);
+  margin: 12px 0px;
+}
+table {
+  border-collapse: collapse;
+  box-shadow: 9px 9px 20px 16px rgba(168, 168, 168, 0.31);
+}
+thead tr {
+  border-top-right-radius: 25px;
+  background-color: seagreen;
+  color: white;
+}
+thead th {
+  border-width: 0px;
+  border: none;
+  padding: 5px;
+}
+tbody tr {
+  border-bottom-style: solid;
+}
+
+tbody button {
+  background-color: rgb(196, 101, 101);
+}
+
+.addNew {
+  max-width: 300px;
+  background-color: white;
+  border-top-right-radius: 25px;
+  border-style: solid;
+}
+
+#error p {
+  margin: 0;
+  color: rgb(196, 101, 101);
+}
