@@ -99,12 +99,15 @@ function deletePizza(btn, id) {
 }
 
 function getList(arrayOfToppings) {
-  var listOfToppings = "<ul>";
-  arrayOfToppings.forEach(function (item) {
-    listOfToppings = listOfToppings.concat("<li>" + item + "</li>");
-  });
-  listOfToppings = listOfToppings.concat("</ul>");
-  return listOfToppings;
+  if (arrayOfToppings.length > 1) {
+    preparedString = arrayOfToppings[0];
+    for (var i = 1; i < arrayOfToppings.length; i++) {
+      preparedString = preparedString.concat(", " + arrayOfToppings[i]);
+    }
+    return preparedString;
+  } else {
+    return arrayOfToppings[0];
+  }
 }
 
 function populateOverallOverview() {
